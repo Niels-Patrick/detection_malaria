@@ -16,5 +16,5 @@ whether the cell is infected or not.
 ## Running the Application
 To run the Flask application, execute the following:
 ```bash
-flask run
+flask run.py
 ```
