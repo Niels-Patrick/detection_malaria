@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="FR-fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport", content="width=device_width, initial_scale=1.0">
+    <title>Malaria Wizard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #add8e6;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            color: #000;
+        }
+        .header {
+            background: linear-gradient(to right, #ff00ff, #00ffff);
+            text-align: center;
+            padding: 20px;
+            border: 5px solid #ff4500; /* Red border */
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        td {
+            border: 3px dashed #000;
+            padding: 10px;
+            text-align: center;
+        }
+        .animated-gif {
+            display: block;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #b200c4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Malaria Wizard</h1>
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                <img id="wizard2" src="{{ url_for('static', filename='picture/wizard2.gif') }}" class="animated-gif">
+            </td>
+            <td>
+                <h3>Téléchargez une image de cellule pour prédire son état (infectée ou non-infectée)</h3>
+                <form id="malaria_form" method="POST" action="/download-picture", enctype="multipart/form-data">
+                    <label for="picture">Sélectionnez une image :</label>
+                    <input type="file" id="file" name="file" accept="image/*" required>
+                    <button type="submit">Télécharger l'image</button>
+                </form>
+            </td>
+            <td>
+                <img id="image" src="">
+                <h1 id="response_message" style="margin-top: 20px; color: blue;" text-align="center"></h1>
+            </td>
+            <td>
+                <img id="wizard" src="{{ url_for('static', filename='picture/wizard.png') }}" width="150" height="250">
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            const imageInput = $('#file');
+            $('#malaria_form').on('submit', function(event) {
+                event.preventDefault(); // Preventing the form from submitting traditionally
+                const data = new FormData();
+                const file = imageInput[0].files[0];
+                data.append('file', file);
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#image').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+
+                // Sending AJAX POST request
+                $.ajax({
+                    url: "/malaria_form",
+                    type: "POST",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // Displaying the response message under the form
+                        imageInput[0].files[0]
+                        $('#response_message').text(response.message);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        $('#response_message').text("Error: "+errorThrown);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
