@@ -51,4 +51,4 @@ dist/
 build/
 
 # Ignore specific files
-Notebooks/dataset.h5
+**/dataset.h5

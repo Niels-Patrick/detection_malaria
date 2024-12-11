@@ -6,7 +6,7 @@
 
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
-ARG PYTHON_VERSION=3.12.4
+ARG PYTHON_VERSION=3.10
 FROM python:${PYTHON_VERSION}-slim as base
 
 # Prevents Python from writing pyc files.
@@ -30,6 +30,8 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
+RUN mkdir -p /app/uploads && chmod 777 /app/uploads
+
 # Copy the requirements file
 COPY requirements.txt requirements.txt
 # Install dependencies
@@ -42,7 +44,7 @@ USER appuser
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 8000
+EXPOSE 8003
 
-# Run the application.
-CMD gunicorn 'env.Lib.site-packages.tornado.wsgi' --bind=0.0.0.0:8000
+# Define the command to run the app
+CMD ["python", "run.py", "--host='0.0.0.0'", "--port=8003"]
