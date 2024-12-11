@@ -12,7 +12,7 @@ services:
     build: .
     container_name: detection_malaria
     ports:
-      - "8000:8000"
+      - "8003:8003"
   
     #volumes:
       #- uploads:/app/uploads
