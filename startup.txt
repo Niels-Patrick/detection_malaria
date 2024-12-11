@@ -1,1 +1,1 @@
-python run.py
+gunicorn --bind 0.0.0.0 --timeout 600 run.py:app
