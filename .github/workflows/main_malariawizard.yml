@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'MalariaWizard'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_87156549A48E459D847CDBDDEB6824EB }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C4972698302F4534A6356C03AC3ACF07 }}
