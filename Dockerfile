@@ -32,8 +32,6 @@ RUN adduser \
 
 RUN mkdir -p /app/uploads && chmod 777 /app/uploads
 
-# Install necessary system dependencies
-RUN apt-get update && apt-get install -y libpq-dev gcc
 
 # Install dependencies
 COPY requirements.txt .
