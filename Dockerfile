@@ -32,10 +32,13 @@ RUN adduser \
 
 RUN mkdir -p /app/uploads && chmod 777 /app/uploads
 
-# Copy the requirements file
-COPY requirements.txt requirements.txt
+# Install necessary system dependencies
+RUN apt-get update && apt-get install -y libpq-dev gcc
+
 # Install dependencies
-RUN pip install -r requirements.txt
+COPY requirements.txt .
+RUN python -m pip install --upgrade pip \
+    && python -m pip install --no-cache-dir -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
 USER appuser
@@ -47,4 +50,4 @@ COPY . .
 EXPOSE 8003
 
 # Define the command to run the app
-CMD ["python", "run.py", "--host='0.0.0.0'", "--port=8003"]
+CMD ["flask", "run", "--host='0.0.0.0'", "--port=8003"]

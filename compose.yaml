@@ -13,12 +13,13 @@ services:
     container_name: detection_malaria
     ports:
       - "8003:8003"
-  
-    #volumes:
-      #- uploads:/app/uploads
+    volumes:
+      - ./data:/data  # Volume to save prediction data
 
-  #environment:
-    #FLASK_ENV: development
+    environment:
+      FLASK_APP: run.py  # Specify Flask entry point
+      DATA_PATH: /data   # File path for saved data
+    command: flask run --host=0.0.0.0 --port=5000
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
