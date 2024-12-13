@@ -47,5 +47,9 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 8003
 
+# Define environment variable
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
+
 # Define the command to run the app
-CMD ["flask", "run", "--host='0.0.0.0'", "--port=8003"]
+CMD ["python", "run.py", "--host='0.0.0.0'", "--port=8003"]
