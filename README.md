@@ -18,3 +18,10 @@ To run the Flask application, execute the following:
 ```bash
 flask run.py
 ```
+
+## Usage
+Once on the web application:
+- Click on the "choose a file" button
+- Select a cell picture from a local file to upload
+- Click on the "upload picture" button
+- The result is displayed on the same page
